@@ -17,7 +17,11 @@ public class User implements Serializable{
 		super();
 		this.id = id;
 		this.pw = pw;
-		this.count = 0;
+		this.count = -1;
+	}
+
+	public static void setuCount(int uCount) {
+		User.uCount = uCount;
 	}
 
 	public User(String id, String pw, String phone, String address) {
@@ -27,7 +31,7 @@ public class User implements Serializable{
 		this.phone = phone;
 		this.address = address;
 		this.bag = null;
-		this.count = uCount+1;
+		this.count = uCount;
 		uCount++;
 	}
 

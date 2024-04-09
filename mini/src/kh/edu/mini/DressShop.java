@@ -16,10 +16,11 @@ public class DressShop {
 	public static Scanner sc = new Scanner(System.in);
 	public static ArrayList<User> uList = new ArrayList<User>();
 	public static ArrayList<Cloth> cList = new ArrayList<Cloth>();
-	public static int clientNo = 0;
-
+	public static int clientNo = 0;	// 현재 접속한 클라이언트의 시리얼 no
+	public static int newUserNo = 0;	// 0~ 생성될때 저장
+	
 	public static void main(String[] args) {
-
+		
 		while (true) {
 			System.out.println("매장을 리셋 하시겠습니까(Y|N)");
 			String reset = sc.nextLine();
@@ -70,6 +71,7 @@ public class DressShop {
 				System.out.println("존재하는 아이디입니다");
 			} else {
 				User user = new User(member[0], member[1], member[2], member[3]);
+				newUserNo = user.getuCount();
 				uList.add(user);
 				saveUser();
 				System.out.println("계정 생성이 완료되었습니다");
@@ -94,7 +96,7 @@ public class DressShop {
 				flag = true;
 			}
 		}
-		if (clientNo == 0) {
+		if (clientNo == -1) {
 //			adminMenu();
 		} else {
 			clientMenu();
@@ -142,11 +144,12 @@ public class DressShop {
 		ArrayList<Cloth> clothList = new ArrayList<Cloth>();
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream(new File("user.txt")));
-			userList.add(new User("admin", "qwer1234", 0)); // admin
+			userList.add(new User("admin", "qwer1234", -1)); // admin
 			oos.writeObject(userList);
-
+			oos = new ObjectOutputStream(new FileOutputStream(new File("userNo.txt")));
+			oos.writeObject(0);
 			oos = new ObjectOutputStream(new FileOutputStream(new File("cloth.txt")));
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 2; i++) {
 				int pPrice = (int) (Math.random() * 401) + 100;
 				clothList.add(new Cloth("pants", i + 1 + "번째 바지", pPrice * 100));
 				int sPrice = (int) (Math.random() * 401) + 100;
@@ -171,7 +174,8 @@ public class DressShop {
 		try {
 			ois = new ObjectInputStream(new FileInputStream(new File("user.txt")));
 			uList = (ArrayList<User>) ois.readObject();
-
+			ois = new ObjectInputStream(new FileInputStream(new File("userNo.txt")));
+			User.setuCount((int) ois.readObject());
 			ois = new ObjectInputStream(new FileInputStream(new File("cloth.txt")));
 			cList = (ArrayList<Cloth>) ois.readObject();
 		} catch (FileNotFoundException e) {
@@ -188,13 +192,15 @@ public class DressShop {
 			}
 		}
 
-	}// cloth.txt 에서 cList로 로드
+	}// load All txt file
 
 	public static void saveUser() {
 		ObjectOutputStream oos = null;
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream(new File("user.txt")));
 			oos.writeObject(uList);
+			oos = new ObjectOutputStream(new FileOutputStream(new File("userNo.txt")));
+			oos.writeObject(newUserNo);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -206,6 +212,6 @@ public class DressShop {
 				e.printStackTrace();
 			}
 		}
-	}// 초기화
+	}// User save
 
 }

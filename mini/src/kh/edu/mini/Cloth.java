@@ -15,10 +15,10 @@ public class Cloth implements Serializable{
 		super();
 		this.type = type;
 		if(type.toLowerCase().equals("pants")) {
-			this.code = "P"+(pCount+1);
+			this.code = "P"+(pCount);
 			pCount++;
 		}else {
-			this.code = "S"+(sCount+1);
+			this.code = "S"+(sCount);
 			sCount++;
 		}
 		this.name = name;
