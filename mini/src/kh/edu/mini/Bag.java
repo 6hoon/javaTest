@@ -1,29 +1,41 @@
 package kh.edu.mini;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Bag {
-	private ArrayList<Cloth> clothList;
-	private ArrayList<Integer> quantity;
+public class Bag implements Serializable {
+
+	private ArrayList<Content> content;
 	private int totalPrice;
-	
-	public ArrayList<Cloth> getClothList() {
-		return clothList;
+
+	public Bag() {
+		super();
 	}
-	public void setClothList(ArrayList<Cloth> clothList) {
-		this.clothList = clothList;
+
+	public ArrayList<Content> getContent() {
+		return content;
 	}
-	public ArrayList<Integer> getQuantity() {
-		return quantity;
+
+	public void setContent(ArrayList<Content> content) {
+		this.content = content;
 	}
-	public void setQuantity(ArrayList<Integer> quantity) {
-		this.quantity = quantity;
-	}
+
 	public int getTotalPrice() {
 		return totalPrice;
 	}
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
+
+	public void setTotalPrice() {
+		for (int i = 0; i < content.size(); i++) {
+			int j = i;
+			DressShop.cList.stream().filter(t -> t.getCode().equals(content.get(j).getCloth().getCode()))
+					.map(t -> totalPrice += (t.getPrice() * content.get(j).getQuantity()));
+		}
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Bag [content=" + content + ", totalPrice=" + totalPrice + "]";
+	}
+
+
 }

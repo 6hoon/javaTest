@@ -2,17 +2,17 @@ package kh.edu.mini;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
-	private static int uCount = 0;
-	
+public class User implements Serializable {
+
+	private static int uCount = 0; // 관리자를 제외한 유저 생성될 때 증가 -> 현재 유저수
+
 	private String id;
 	private String pw;
 	private String phone;
 	private String address;
 	private Bag bag;
 	private int count;
-	
-	
+
 	public User(String id, String pw, int count) {
 		super();
 		this.id = id;
@@ -30,9 +30,8 @@ public class User implements Serializable{
 		this.pw = pw;
 		this.phone = phone;
 		this.address = address;
-		this.bag = null;
-		this.count = uCount;
-		uCount++;
+		this.bag = new Bag();
+		this.count = uCount++;
 	}
 
 	public String getId() {
@@ -85,13 +84,13 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		if(this.id.equals("admin")) {
-			return "관리자";
-		}
-		return "User [id=" + id + ", pw=" + pw + ", phone=" + phone + ", address=" + address + ", bag=" + bag
-				+ ", count=" + count + "]";
-	}
+		if (this.count == -1) {
+			return "관리자 [ ID=" + id + ", PW= " + pw + " ]";
+		} else {
 
-		
-	
+			return "User [ ID=" + id + ", PW=" + pw + ", 번호:" + phone + ", 주소:" + address + "장바구니 항목 수"
+					+ bag.getContent().size() + ", 유저식별번호: " + count + " ]";
+
+		}
+	}
 }
