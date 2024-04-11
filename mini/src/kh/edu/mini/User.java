@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-	private static int uCount = 0; // 관리자를 제외한 유저 생성될 때 증가 -> 현재 유저수
+	private static int uCount = 1; // 관리자를 제외한 유저 생성될 때 증가 -> 현재 유저수
 
 	private String id;
 	private String pw;
@@ -12,12 +12,18 @@ public class User implements Serializable {
 	private String address;
 	private Bag bag;
 	private int count;
+	
+	
 
-	public User(String id, String pw, int count) {
+	public User() {
+		super();
+	}
+
+	public User(String id, String pw) {
 		super();
 		this.id = id;
 		this.pw = pw;
-		this.count = -1;
+		this.count = 0;
 	}
 
 	public static void setuCount(int uCount) {
@@ -88,8 +94,7 @@ public class User implements Serializable {
 			return "관리자 [ ID=" + id + ", PW= " + pw + " ]";
 		} else {
 
-			return "User [ ID=" + id + ", PW=" + pw + ", 번호:" + phone + ", 주소:" + address + "장바구니 항목 수"
-					+ bag.getContent().size() + ", 유저식별번호: " + count + " ]";
+			return "User [ ID=" + id + ", PW=" + pw + ", 번호:" + phone + ", 주소:" + address + ", 유저식별번호: " + count + " ]";
 
 		}
 	}

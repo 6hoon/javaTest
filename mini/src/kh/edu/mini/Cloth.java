@@ -13,6 +13,11 @@ public class Cloth implements Serializable {
 
 	
 	public Cloth() {
+		this.type = "0";
+		this.code = "0";
+		this.name = "0";
+		this.stock = 0;
+		this.price = 0;
 	}
 
 	public Cloth(String type, String name, int price) {
@@ -27,7 +32,7 @@ public class Cloth implements Serializable {
 			return;
 		}
 		this.name = name;
-		this.stock = 1;
+		this.stock = 10;
 		this.price = price;
 	}
 
@@ -82,17 +87,10 @@ public class Cloth implements Serializable {
 	@Override
 	public String toString() {
 		if (this.type.equals("pants")) {
-			return "바지: " + code + ",상품 이름: " + name + ", 가격: " + price + ", 남은 수량: " + stock;
+			return "바지: " + code + ",이름: " + name + ", 가격: " + price + ", 남은 수량: " + stock;
 		} else {
-			return "셔츠: " + code + ",상품 이름: " + name + ", 가격: " + price + ", 남은 수량: " + stock;
+			return "셔츠: " + code + ",이름: " + name + ", 가격: " + price + ", 남은 수량: " + stock;
 		}
 	}
 
-	public String clothToClient() {
-		if (this.type.equals("pants")) {
-			return "바지: " + code + ",상품 이름: " + name + ", 가격: " + price;
-		} else {
-			return "셔츠: " + code + ",상품 이름: " + name + ", 가격: " + price;
-		}
-	}
 }

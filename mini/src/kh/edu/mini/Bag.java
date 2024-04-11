@@ -10,6 +10,9 @@ public class Bag implements Serializable {
 
 	public Bag() {
 		super();
+		content = new ArrayList<Content>();
+		this.content.add(new Content());
+		this.totalPrice = 0;
 	}
 
 	public ArrayList<Content> getContent() {
@@ -24,18 +27,19 @@ public class Bag implements Serializable {
 		return totalPrice;
 	}
 
-	public void setTotalPrice() {
-		for (int i = 0; i < content.size(); i++) {
-			int j = i;
-			DressShop.cList.stream().filter(t -> t.getCode().equals(content.get(j).getCloth().getCode()))
-					.map(t -> totalPrice += (t.getPrice() * content.get(j).getQuantity()));
-		}
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public void calTotalPrice() {
+		totalPrice = 0;
+		content.stream().forEach(t -> totalPrice += t.getPrice());
 	}
 
 	@Override
 	public String toString() {
-		return "Bag [content=" + content + ", totalPrice=" + totalPrice + "]";
+		content.stream().forEach(t -> System.out.println(t));
+		return "장바구니 총 합계: " + totalPrice;
 	}
-
 
 }
