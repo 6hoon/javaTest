@@ -47,7 +47,6 @@ public class DressShop {
 		System.out.println("The End");
 
 	}// end of main
-	
 
 	public static void startingMenu() {
 		int startMenu = 0;
@@ -471,7 +470,8 @@ public class DressShop {
 				ObjectOutputStream oosUser = new ObjectOutputStream(new FileOutputStream("user.txt"));
 				ObjectOutputStream oosUserNo = new ObjectOutputStream(new FileOutputStream("userNo.txt"));
 				ObjectOutputStream oosCloth = new ObjectOutputStream(new FileOutputStream("cloth.txt"));
-				ObjectOutputStream oisCo = new ObjectOutputStream(new FileOutputStream("co.txt"));) {
+				ObjectOutputStream oosCo = new ObjectOutputStream(new FileOutputStream("co.txt"));
+				ObjectOutputStream oosCcl = new ObjectOutputStream(new FileOutputStream("ccl.txt"));) {
 
 			ArrayList<User> userList = new ArrayList<>();
 			String[] admin = brAdmin.readLine().split("/");
@@ -488,8 +488,9 @@ public class DressShop {
 				clothList.add(new Cloth("s", i + 1 + "번째 셔츠", sPrice * 100));
 			}
 			oosCloth.writeObject(clothList);
+			oosCcl.writeObject(clothList);
 
-			oisCo.writeObject(Cloth.getCoList());
+			oosCo.writeObject(Cloth.getCoList());
 
 			System.out.println("초기화 완료");
 
